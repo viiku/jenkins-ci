@@ -8,5 +8,8 @@ RUN INSTALL_PKGS="",
     apt-get clean && \
     rm -rf /var/lib/lists/*
 
+COPY plugin.txt /usr/share/jenkins/ref/
 
-    
+COPY init.groovy.d/* /usr/share/jenkins/ref/init.groovy.d/executors.groovy
+
+EXPOSE 8080
