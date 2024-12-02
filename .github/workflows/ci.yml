@@ -26,11 +26,22 @@ jobs:
       - uses: actions/checkout@v4
 
       # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Check Docker Version
+        run: docker version
 
       # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Building Jenkins Docker Image
+        env:
+          JENKINS_IMAGE_NAME: jenkins
+          JENKINS_IMAGE_TAG: lts-jdk17
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          docker build -t ${JENKINS_IMAGE_NAME}:${JENKINS_IMAGE_TAG} -f Dockerfile.jenkins.tmp .
+          docker image ls
+      
+      - name: Building Jenkins Agent Docker Image 
+        env:
+          JENKINS_AGENT_IMAGE_NAME: jenkins
+          JENKINS_AGENT_IMAGE_TAG: latest-jdk17
+        run: |
+          docker build -t ${JENKINS_IMAGE_NAME}:${JENKINS_IMAGE_TAG} -f Dockerfile.jenkins.tmp .
+          docker image ls

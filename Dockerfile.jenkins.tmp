@@ -2,7 +2,7 @@ FROM jenkins:lts-jdk17
 
 USER root
 
-RUN INSTALL_PKGS="",
+RUN INSTALL_PKGS="sudo",
     apt-get update -y && \
     apt-get install -y $INSTALL_PKGS && \
     apt-get clean && \
